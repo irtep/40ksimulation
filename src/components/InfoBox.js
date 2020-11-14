@@ -1,9 +1,7 @@
 import React, { Component } from "react";
-import Field from './components/Field.js';
-import Menu from './components/Menu.js';
-import './App.css';
+import '../App.css';
 
-class App extends Component {
+class InfoBox extends Component {
   constructor() {
     super();
     this.state = {
@@ -14,11 +12,10 @@ class App extends Component {
   render() {
     return(
       <div>
-        <Menu />
-        <Field />
+        fieldi
       </div>
     );
   }
 }
 
-export default App;
+export default InfoBox;
