@@ -12,7 +12,7 @@ class InfoBox extends Component {
   render() {
     return(
       <div>
-        fieldi
+        info box
       </div>
     );
   }

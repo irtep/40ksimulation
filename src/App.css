@@ -1,4 +1,65 @@
 * {
+  height: 100%;
+}
+#container {
+  display: grid;
+  grid-template-columns: auto 600px auto;
+  grid-template-rows: 10% 440px auto;
+  grid-template-areas:
+    'theHead theHead theHead'
+    'theDices theField theInfo'
+    'theFoot theFoot theFoot';
+  grid-gap: 1px;
+}
+#upperHeader {
+  grid-area: theHead;
+  border-style: solid;
+  text-align: center;
+  font-size: 15px;
+  background: blue;
+  color: white;
+}
+#centerField {
+  grid-area: theField;
+  border-style: solid;
+  text-align: center;
+  font-size: 15px;
+  background: black;
+  color: white;
+}
+#FooterDown {
+  grid-area: theDices;
+  border-style: solid;
+  text-align: center;
+  font-size: 15px;
+  background: dodgerBlue;
+  color: orange;
+}
+#OffField {
+  grid-area: theFoot;
+  border-style: solid;
+  text-align: center;
+  font-size: 15px;
+  background: darkGray;
+  color: white;
+}
+#Information {
+  grid-area: theInfo;
+  border-style: solid;
+  text-align: center;
+  font-size: 15px;
+  background: darkGray;
+  color: gold;
+}
+#battleField {
   background: darkGreen;
   color: white;
+  width: 600px;
+  height: 440px;
+}
+#offTheField {
+  background: gray;
+  color: white;
+  width: 600px;
+  height: auto;
 }

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import '../App.css';
 
-class OffField extends Component {
+class DiceBox extends Component {
   constructor() {
     super();
     this.state = {
@@ -12,10 +12,10 @@ class OffField extends Component {
   render() {
     return(
       <div>
-        <canvas id= "offTheField"></canvas>
+        dice box
       </div>
     );
   }
 }
 
-export default OffField;
+export default DiceBox;
