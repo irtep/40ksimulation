@@ -2,7 +2,7 @@ import { convertBases } from '../functions.js';
 
 // all models are these
 export class Model {
-  constructor(name, statLine, weapons, rules, location, baseForm, baseSize, woundsLeft){
+  constructor(name, statLine, weapons, rules, location, baseForm, baseSize){
     this.name = name;
     this.statLine = statLine; // give these in array to support multiProfiles
     this.weapons = weapons;
@@ -16,6 +16,17 @@ export class Model {
     return ´${this.name} <br>stats: ${this.statsLine}<br>points: ${this.pointCost}<br>
       weapons ${this.weapons}<br>rules:  ${this.rules}´;
   }
+}
+export class Terrain {
+  constructor(name, type, color, location, baseForm, baseSize){
+    this.name = name;
+    this.statLine = statLine; // give these in array to support multiProfiles
+    this.color = color;
+    this.location = location;
+    this.baseForm = baseForm;
+    // circle bases should come as mm value, squares in array [w,h]
+    this.baseSize = convertBases(baseForm, baseSize);
+  };
 }
 class Stats {
   constructor(m, ws, bs, s, t, w, a, ld, sv, woundRange){

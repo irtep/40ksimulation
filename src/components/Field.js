@@ -12,7 +12,7 @@ class Field extends Component {
   render() {
     return(
       <div>
-        fieldi
+        <canvas id= "battleField"></canvas>
       </div>
     );
   }
