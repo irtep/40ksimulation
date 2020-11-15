@@ -4,22 +4,38 @@ import Menu from './components/Menu.js';
 import DiceBox from './components/DiceBox.js';
 import OffField from './components/OffField.js';
 import InfoBox from './components/InfoBox.js';
+import { convertModel, draw } from './functions.js';
 import './App.css';
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      army1: [],
-      army2: []
+      modelsInGame: [],
+      terrains: []
     }
     this.fromMenuToInfoBox = this.fromMenuToInfoBox.bind(this);
+    this.fromInboxToApp = this.fromInboxToApp.bind(this);
   }
   fromMenuToInfoBox(elem) {
     // transfer data from Menu to InfoBox
-    console.log(elem);
     this.setState({fromStateToInfoBox: elem});
   }
+  fromInboxToApp(elem) {
+    const modelsInGame = this.state.modelsInGame;
+    const converted = convertModel(elem, modelsInGame.length);
+    modelsInGame.push(converted);
+    this.setState({modelsInGame});
+  }
+  componentDidUpdate(){
+    console.log('state now: ', this.state);
+    const inField = document.getElementById('battleField');
+    const outField = document.getElementById('offTheField');
+    console.log('attempt to draw ', inField, outField);
+    if (this.state.modelsInGame.length !== 0) {
+      draw(inField, outField, this.state.modelsInGame, this.state.terrains);
+    }
+  };
   render() {
     return(
       <div id= "container">
@@ -37,6 +53,7 @@ class App extends Component {
         <div id= "information">
           <InfoBox
             dataToUse = {this.state.fromStateToInfoBox}
+            fromInboxToApp = {this.fromInboxToApp}
           />
         </div>
         <div id= "FooterDown">
