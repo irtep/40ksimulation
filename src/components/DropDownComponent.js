@@ -19,6 +19,7 @@ class DropDownComponent extends Component {
   }
   collectData(elem){
     console.log('dd value now: ', elem.target.value);
+    this.props.newModelChosen(elem.target.value);
   }
   focusedDropdown(element) {
     console.log('focused: ', element.target.id);
