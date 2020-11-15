@@ -13,14 +13,14 @@ export class Model {
     this.baseSize = convertBases(baseForm, baseSize);
   };
   get showStats() {
-    return ´${this.name} <br>stats: ${this.statsLine}<br>points: ${this.pointCost}<br>
-      weapons ${this.weapons}<br>rules:  ${this.rules}´;
+    const stringToSend = `${this.name} <br>stats: ${this.statsLine}<br>points: ${this.pointCost}<br>
+     weapons ${this.weapons}<br>rules:  ${this.rules}`;
+    return stringToSend;
   }
 }
 export class Terrain {
   constructor(name, type, color, location, baseForm, baseSize){
     this.name = name;
-    this.statLine = statLine; // give these in array to support multiProfiles
     this.color = color;
     this.location = location;
     this.baseForm = baseForm;
@@ -28,7 +28,7 @@ export class Terrain {
     this.baseSize = convertBases(baseForm, baseSize);
   };
 }
-class Stats {
+export class Stats {
   constructor(m, ws, bs, s, t, w, a, ld, sv, woundRange){
     this.m = m;
     this.ws = ws;
@@ -45,7 +45,7 @@ class Stats {
 export class Weapon {
   constructor(name, type, range, s, ap, damage, specials) {
     this.name = name;
-    this.type = type,
+    this.type = type;
     this.range = range;
     this.s = s;
     this.ap = ap;
@@ -53,7 +53,7 @@ export class Weapon {
     this.specials = specials;
   }
   get showStats() {
-    return ´${this.name} <br>type: ${this.statsLine}<br>range: ${this.range}<br>
-      stats: ${this.s} -${this.ap} ${this.damage} rules:  ${this.specials}´;
+    return `${this.name} <br>type: ${this.statsLine}<br>range: ${this.range}<br>
+      stats: ${this.s} -${this.ap} ${this.damage} rules:  ${this.specials}`;
   }
 }

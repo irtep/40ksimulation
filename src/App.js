@@ -13,12 +13,20 @@ class App extends Component {
       army1: [],
       army2: []
     }
+    this.fromMenuToInfoBox = this.fromMenuToInfoBox.bind(this);
+  }
+  fromMenuToInfoBox(elem) {
+    // transfer data from Menu to InfoBox
+    console.log(elem);
+    this.setState({fromStateToInfoBox: elem});
   }
   render() {
     return(
       <div id= "container">
         <div id= "upperHeader">
-          <Menu />
+          <Menu
+            fromButtonToInfoBox = {this.fromMenuToInfoBox}
+          />
         </div>
         <div id= "centerField">
           <Field />
@@ -27,7 +35,9 @@ class App extends Component {
           <OffField />
         </div>
         <div id= "information">
-          <InfoBox />
+          <InfoBox
+            dataToUse = {this.state.fromStateToInfoBox}
+          />
         </div>
         <div id= "FooterDown">
           <DiceBox />
