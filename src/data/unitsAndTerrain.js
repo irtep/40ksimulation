@@ -39,6 +39,6 @@ export const models = [
     '',
     {inField: false, x: null, y: null},
     'square',
-    [78,120,0] // w s angle
+    [78,120,0] // w h angle
     ),
 ];

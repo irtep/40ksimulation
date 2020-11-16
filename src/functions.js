@@ -2,8 +2,9 @@ import { models } from './data/unitsAndTerrain';
 // this will convert sizes from millimetres, to battlefield size
 function mmToInchesToBf(mmValue) {
   //inch == mm / 25,4
-  // battlefield size is inches * 100
-  return mmValue / 25.4 * 100;
+  // battlefield size is inches
+  // not sure if this is right or even close..
+  return mmValue / 25.4;
 }
 // this will get base sizes right
 export function convertBases(form, sizes) {
@@ -28,41 +29,60 @@ export function convertModel(modelsName, modelsActivated) {
   console.log('converted model: ', convertedModel);
   // give x and y
   const newX = 100 + (modelsActivated * 100);
-  convertedModel[0].x = newX;
-  convertedModel[0].y = 100;
+  convertedModel[0].location.x = newX;
+  convertedModel[0].location.y = 100;
   return convertedModel[0];
 }
 // this draw models and terrains to fields
-export function draw(canvas, canvas2, troops, buildings) {
-  console.log('ONDRAW onField: ', canvas, 'offField: ', canvas2, 'troops: ', troops, 'buildings: ', buildings);
-  let ctx = canvas.getContext("2d");
+export function draw(canvas, canvas2, troops, buildings, hovers) {
+  canvas.getContext("2d").clearRect(0,0,canvas.width,canvas.height);  // clear all
+  canvas2.getContext("2d").clearRect(0,0,canvas.width,canvas.height);  // clear all
+  //console.log('hovers: ', hovers);
+  let ctx = null;
   troops.forEach((item, i) => {
-    console.log('drawing: ', item);
+    //console.log('drawing: ', item);
     // select correct canvas
-    // if cirle paint
-    // else paint by angle
-    // paint hull of the ship:
+    item.location.inField ? ctx = canvas.getContext("2d") : ctx = canvas2.getContext("2d")
     ctx.beginPath();
     ctx.fillStyle = 'black';
-    /*
-    ctx.save(); // save coords system
-    ctx.translate(ship.leftTopCorner.x, ship.leftTopCorner.y);
-    //ctx.translate(ship.x, ship.y);
-    ctx.rotate(ship.heading * Math.PI / 180);
-    ctx.rect(0, 0, ship.w, ship.h);
-    ctx.fill();
+    // if cirle paint
+    if (item.baseForm === 'circle') {
+      ctx.arc(item.location.x, item.location.y, item.baseSize, 0, 2 * Math.PI);
+      ctx.fill();
+    } else if (item.baseForm === 'square') {
+      ctx.save(); // save coords system
+      ctx.translate(item.location.x + item.baseSize[0]/2, item.location.y + item.baseSize[1]/2);
+      ctx.rotate(item.baseSize[2] * Math.PI/180);
+      ctx.rect(0, 0, item.baseSize[0], item.baseSize[1]);
+      ctx.fill();
+      ctx.restore(); // restore saved coords
+    }
     ctx.closePath();
     // info texts
     ctx.beginPath();
     ctx.fillStyle = 'white';
-    ctx.fillText (ship.name, 0, -30);
+    ctx.fillText (item.name, item.location.x, item.location.y-30);
     ctx.fill();
-    ctx.fillStyle = 'yellow';
-    ctx.fillText ('hp: '+ ship.hitPoints, 0, -20);
-    ctx.fill();
-    ctx.restore();
-    */
   });
+  // paint hovers
+  let mouseLocation = null;
+  if (hovers.onField.y < canvas.height) {
+    ctx = canvas.getContext("2d");
+    mouseLocation = hovers.onField;
+  } else {
+    ctx = canvas2.getContext("2d")
+    mouseLocation = hovers.offField;
+  }
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(mouseLocation.x-20, mouseLocation.y - 20);
+  ctx.lineTo(mouseLocation.x+40, mouseLocation.y +40);
+  ctx.stroke();
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(mouseLocation.x+40, mouseLocation.y - 20);
+  ctx.lineTo(mouseLocation.x-40, mouseLocation.y +40);
+  ctx.stroke();
   /*
   Model {name: "guardsman", statLine: Array(1), weapons: Array(2), rules: "", location: {…}, …}
   baseForm: "circle"
