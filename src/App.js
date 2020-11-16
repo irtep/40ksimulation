@@ -4,7 +4,7 @@ import Menu from './components/Menu.js';
 import DiceBox from './components/DiceBox.js';
 import OffField from './components/OffField.js';
 import InfoBox from './components/InfoBox.js';
-import { convertModel, draw } from './functions.js';
+import { convertModel } from './functions.js';
 import './App.css';
 
 class App extends Component {
@@ -17,6 +17,7 @@ class App extends Component {
     this.fromMenuToInfoBox = this.fromMenuToInfoBox.bind(this);
     this.fromInboxToApp = this.fromInboxToApp.bind(this);
   }
+
   fromMenuToInfoBox(elem) {
     // transfer data from Menu to InfoBox
     this.setState({fromStateToInfoBox: elem});
@@ -29,12 +30,9 @@ class App extends Component {
   }
   componentDidUpdate(){
     console.log('state now: ', this.state);
-    const inField = document.getElementById('battleField');
-    const outField = document.getElementById('offTheField');
-    console.log('attempt to draw ', inField, outField);
-    if (this.state.modelsInGame.length !== 0) {
-      draw(inField, outField, this.state.modelsInGame, this.state.terrains);
-    }
+  //  if (this.state.modelsInGame.length !== 0 && this.state.hovers !== undefined) {
+  //    draw(inField, outField, this.state.modelsInGame, this.state.terrains, hoveringDetails);
+//    }
   };
   render() {
     return(
@@ -45,10 +43,16 @@ class App extends Component {
           />
         </div>
         <div id= "centerField">
-          <Field />
+          <Field
+            name = 'battleField'
+            modelsInGame = {this.state.modelsInGame}
+            terrains = {this.state.terrains}
+            />
         </div>
         <div id= "OffField">
-          <OffField />
+          <OffField
+          onMouseMove= {(e) => this.hovering(e)}
+            />
         </div>
         <div id= "information">
           <InfoBox
