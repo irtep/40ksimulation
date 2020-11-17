@@ -31,6 +31,7 @@ export function convertModel(modelsName, modelsActivated) {
   const newX = 100 + (modelsActivated * 100);
   convertedModel[0].location.x = newX;
   convertedModel[0].location.y = 100;
+  convertedModel[0].id = convertedModel[0].name+convertedModel[0].location.x+convertedModel[0].location.y;
   return convertedModel[0];
 }
 // this draw models and terrains to fields
@@ -62,24 +63,26 @@ export function draw(canvas, troops, buildings, hovers) {
     ctx.fill();
   });
   // paint hovers
+  /*
   ctx.beginPath();
   ctx.arc(hovers.x, hovers.y, 10, 0, 2 * Math.PI);
   ctx.fill();
   ctx.rect(150, 300, 100, 100);
   ctx.fill();
   ctx.closePath();
-  // field borders
-  ctx.beginPath();
-  ctx.strokeStyle = 'white';
-  ctx.rect(0, 0, 650, 440);
-  ctx.stroke();
-  ctx.closePath();
-  // deployment lines
-  ctx.beginPath();
-  ctx.strokeStyle = 'yellow';
-  ctx.rect(0, 146, 650, 146);
-  ctx.stroke();
-  ctx.closePath();
+  */
+    // field borders
+    ctx.beginPath();
+    ctx.strokeStyle = 'white';
+    ctx.rect(0, 0, 700, 440);
+    ctx.stroke();
+    ctx.closePath();
+    // deployment lines
+    ctx.beginPath();
+    ctx.strokeStyle = 'yellow';
+    ctx.rect(0, 146, 700, 146);
+    ctx.stroke();
+    ctx.closePath();
 
 
   /*
@@ -117,3 +120,14 @@ export function draw(canvas, troops, buildings, hovers) {
   __proto__: Object
   */
 }
+// collision detect arc vs arc
+export function arcVsArc(sub, obj, subSize, objSize) {
+  const dx = sub.x - obj.x;
+  const dy = sub.y - obj.y;
+  const distance = Math.sqrt(dx * dx + dy * dy);
+  if (distance < subSize + objSize) {
+    return true;
+  } else {
+    return false;
+  }
+};

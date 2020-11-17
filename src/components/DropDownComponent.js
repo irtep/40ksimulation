@@ -17,12 +17,29 @@ class DropDownComponent extends Component {
       document.getElementById("ddMenu").appendChild(o);
     });
   }
+  componentDidUpdate() {
+    const select = document.getElementById("ddMenu");
+    const length = select.options.length;
+    for (let i = length-1; i >= 0; i--) {
+      select.options[i] = null;
+    }
+    /* fill menus */
+    const startOption = document.createElement('opx');
+    opx.text = {this.props.firstOption};
+    this.props.options.forEach( (item) => {
+      const o = document.createElement("option");
+      o.text = item.name;
+      o.value = item.name;
+      o.key = item.name;
+      select.appendChild(o);
+    });
+  }
   collectData(elem){
-    console.log('dd value now: ', elem.target.value);
+    //console.log('dd value now: ', elem.target.value);
     this.props.newModelChosen(elem.target.value);
   }
   focusedDropdown(element) {
-    console.log('focused: ', element.target.id);
+    //console.log('focused: ', element.target.id);
     /*
     const objectToSend = {name: 'infoToLeftSection', value: element.target.id}
     this.props.sendData(objectToSend);
@@ -32,7 +49,7 @@ class DropDownComponent extends Component {
     return(
       <div>
         <select id= "ddMenu" className= "rollMenus" onChange= {this.collectData} onFocus= {this.focusedDropdown}>
-          <option value = "Choose a model">Choose a model</option>
+          <option value = "Choose a model">{this.props.firstOption}}</option>
         </select><br />
       </div>
     );

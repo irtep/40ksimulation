@@ -1,16 +1,20 @@
 import React, { Component } from "react";
-import { draw } from '../functions.js';
+import { draw, arcVsArc } from '../functions.js';
 import '../App.css';
 
 class Field extends Component {
   constructor() {
     super();
+    this.state = {
+      clicked: ''
+    }
     this.hovering = this.hovering.bind(this);
+    this.clickControl = this.clickControl.bind(this);
   }
   hovering(e) {
     // get mouse locations offsets to get where mouse is hovering.
     const thisField = document.getElementById(this.props.name);
-    let r = document.getElementById(this.props.name).getBoundingClientRect();
+    let r = thisField.getBoundingClientRect();
     let x = e.clientX - r.left;
     let y = e.clientY - r.top;
     const hoveringDetails = {canvas: this.props.name, x: x, y: y};
@@ -18,13 +22,38 @@ class Field extends Component {
       draw(thisField, this.props.modelsInGame, this.props.terrains, hoveringDetails);
     }
   }
+  clickControl(e) {
+    // get mouse locations offsets to get where mouse is hovering.
+    const thisField = document.getElementById(this.props.name);
+    let r = thisField.getBoundingClientRect();
+    let x = e.clientX - r.left;
+    let y = e.clientY - r.top;
+    const hoveringDetails = {canvas: this.props.name, x: x, y: y};
+
+    const searchLocation = this.props.modelsInGame.map( modelo => {
+      // make collision check if this is being hovered atm.
+      let baseSize = null;
+      if (modelo.baseForm === 'circle') {
+        baseSize = modelo.baseSize;
+      } else {
+        baseSize = modelo.baseSize[1];
+      }
+      const collision = arcVsArc(modelo.location, hoveringDetails, baseSize, 5);
+      if (collision) {
+        console.log('scanned: ', modelo.id);
+        // send clicked soldiers name to parent
+        this.props.dataReceiver(modelo.id);
+      }
+    });
+  }
   render() {
     return(
       <div>
         <canvas id= {this.props.name}
         width = {this.props.w}
         height = {this.props.h}
-        onMouseMove= {(e) => this.hovering(e)}>
+        onMouseMove= {(e) => this.hovering(e)}
+        onClick= {(e) => this.clickControl(e)}>
         </canvas>
       </div>
     );

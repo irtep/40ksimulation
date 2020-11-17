@@ -15,8 +15,13 @@ class App extends Component {
     }
     this.fromMenuToInfoBox = this.fromMenuToInfoBox.bind(this);
     this.fromInboxToApp = this.fromInboxToApp.bind(this);
+    this.fromFieldToApp = this.fromFieldToApp.bind(this);
   }
-
+  fromFieldToApp(e) {
+    this.setState({modelClicked: e ,
+      fromStateToInfoBox: 'modelChosen'}
+    );
+  }
   fromMenuToInfoBox(elem) {
     // transfer data from Menu to InfoBox
     this.setState({fromStateToInfoBox: elem});
@@ -48,6 +53,7 @@ class App extends Component {
             h = '700'
             modelsInGame = {this.state.modelsInGame}
             terrains = {this.state.terrains}
+            dataReceiver = {this.fromFieldToApp}
             />
         </div>
         <div id= "information">

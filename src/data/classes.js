@@ -42,6 +42,7 @@ export class Stats {
     this.woundRange = woundRange; // when this statLine is operative
   }
 }
+/*  maybe not really needed
 export class Weapon {
   constructor(name, type, range, s, ap, damage, specials) {
     this.name = name;
@@ -57,3 +58,4 @@ export class Weapon {
       stats: ${this.s} -${this.ap} ${this.damage} rules:  ${this.specials}`;
   }
 }
+*/
