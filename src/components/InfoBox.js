@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import DropDownComponent from './DropDownComponent.js';
 import { models } from '../data/unitsAndTerrain.js';
 import '../App.css';
+const modelActions = [
+  {name: 'move'}, {name: '-1 wound'}, {name: '+1 wound'}, {name: 'pivotLeft'}, {name: 'pivotRight'}
+];
 
 class InfoBox extends Component {
   constructor() {
@@ -27,7 +30,15 @@ class InfoBox extends Component {
         showThis = <DropDownComponent
         options = {models}
         newModelChosen = {this.sendToParent}
+        firstOption = 'choose a model'
         />;
+      break;
+      case 'modelChosen':
+      showThis = <DropDownComponent
+      options = {modelActions}
+      newModelChosen = {this.sendToParent}
+      firstOption = 'choose action'
+      />;
       break;
       case '':
         showThis = '';
