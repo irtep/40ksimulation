@@ -3,6 +3,10 @@ notes and plan here
 standard battlefield 44*60 inches
 converted in *100, so 100 pixels is 1 inch in battlefield simulation
 
+  //inch == mm / 25,4
+  // mm == inch * 25,4
+  // foot == mm * 305
+
 start page:
 menu:
 create army -> create army interface

@@ -9,27 +9,23 @@ class Field extends Component {
   }
   hovering(e) {
     // get mouse locations offsets to get where mouse is hovering.
-    const inField = document.getElementById('battleField');
-    const outField = document.getElementById('offTheField');
-    let r = document.getElementById('battleField').getBoundingClientRect();
-    let r2 = document.getElementById('offTheField').getBoundingClientRect();
+    const thisField = document.getElementById(this.props.name);
+    let r = document.getElementById(this.props.name).getBoundingClientRect();
     let x = e.clientX - r.left;
     let y = e.clientY - r.top;
-    let x2 = e.clientX - r2.left;
-    let y2 = e.clientY - r2.top;
-    //console.log('hovering: ', x, y, x2, y2);
-    const battleFieldDetails = {x: x, y: y};
-    const offTheFieldDetails = {x: x2, y: y2};
-    const hoveringDetails = {onField: battleFieldDetails,
-                            offField: offTheFieldDetails};
+    const hoveringDetails = {canvas: this.props.name, x: x, y: y};
     if (this.props.modelsInGame.length !== 0) {
-      draw(inField, outField, this.props.modelsInGame, this.props.terrains, hoveringDetails);
+      draw(thisField, this.props.modelsInGame, this.props.terrains, hoveringDetails);
     }
   }
   render() {
     return(
       <div>
-        <canvas id= {this.props.name} onMouseMove= {(e) => this.hovering(e)}></canvas>
+        <canvas id= {this.props.name}
+        width = {this.props.w}
+        height = {this.props.h}
+        onMouseMove= {(e) => this.hovering(e)}>
+        </canvas>
       </div>
     );
   }

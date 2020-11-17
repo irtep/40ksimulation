@@ -4,7 +4,7 @@ function mmToInchesToBf(mmValue) {
   //inch == mm / 25,4
   // battlefield size is inches
   // not sure if this is right or even close..
-  return mmValue / 25.4;
+  return mmValue / 25.4 * 10;
 }
 // this will get base sizes right
 export function convertBases(form, sizes) {
@@ -34,15 +34,12 @@ export function convertModel(modelsName, modelsActivated) {
   return convertedModel[0];
 }
 // this draw models and terrains to fields
-export function draw(canvas, canvas2, troops, buildings, hovers) {
+export function draw(canvas, troops, buildings, hovers) {
   canvas.getContext("2d").clearRect(0,0,canvas.width,canvas.height);  // clear all
-  canvas2.getContext("2d").clearRect(0,0,canvas.width,canvas.height);  // clear all
   //console.log('hovers: ', hovers);
-  let ctx = null;
+  const ctx = canvas.getContext('2d');
   troops.forEach((item, i) => {
     //console.log('drawing: ', item);
-    // select correct canvas
-    item.location.inField ? ctx = canvas.getContext("2d") : ctx = canvas2.getContext("2d")
     ctx.beginPath();
     ctx.fillStyle = 'black';
     // if cirle paint
@@ -65,24 +62,26 @@ export function draw(canvas, canvas2, troops, buildings, hovers) {
     ctx.fill();
   });
   // paint hovers
-  let mouseLocation = null;
-  if (hovers.onField.y < canvas.height) {
-    ctx = canvas.getContext("2d");
-    mouseLocation = hovers.onField;
-  } else {
-    ctx = canvas2.getContext("2d")
-    mouseLocation = hovers.offField;
-  }
-  ctx.lineWidth = 1;
   ctx.beginPath();
-  ctx.moveTo(mouseLocation.x-20, mouseLocation.y - 20);
-  ctx.lineTo(mouseLocation.x+40, mouseLocation.y +40);
-  ctx.stroke();
-  ctx.lineWidth = 1;
+  ctx.arc(hovers.x, hovers.y, 10, 0, 2 * Math.PI);
+  ctx.fill();
+  ctx.rect(150, 300, 100, 100);
+  ctx.fill();
+  ctx.closePath();
+  // field borders
   ctx.beginPath();
-  ctx.moveTo(mouseLocation.x+40, mouseLocation.y - 20);
-  ctx.lineTo(mouseLocation.x-40, mouseLocation.y +40);
+  ctx.strokeStyle = 'white';
+  ctx.rect(0, 0, 650, 440);
   ctx.stroke();
+  ctx.closePath();
+  // deployment lines
+  ctx.beginPath();
+  ctx.strokeStyle = 'yellow';
+  ctx.rect(0, 146, 650, 146);
+  ctx.stroke();
+  ctx.closePath();
+
+
   /*
   Model {name: "guardsman", statLine: Array(1), weapons: Array(2), rules: "", location: {…}, …}
   baseForm: "circle"
