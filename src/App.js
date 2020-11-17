@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Field from './components/Field.js';
 import Menu from './components/Menu.js';
 import DiceBox from './components/DiceBox.js';
-import OffField from './components/OffField.js';
 import InfoBox from './components/InfoBox.js';
 import { convertModel } from './functions.js';
 import './App.css';
@@ -45,13 +44,10 @@ class App extends Component {
         <div id= "centerField">
           <Field
             name = 'battleField'
+            w = '700'
+            h = '700'
             modelsInGame = {this.state.modelsInGame}
             terrains = {this.state.terrains}
-            />
-        </div>
-        <div id= "OffField">
-          <OffField
-          onMouseMove= {(e) => this.hovering(e)}
             />
         </div>
         <div id= "information">
@@ -60,7 +56,7 @@ class App extends Component {
             fromInboxToApp = {this.fromInboxToApp}
           />
         </div>
-        <div id= "FooterDown">
+        <div id= "dices">
           <DiceBox />
         </div>
       </div>

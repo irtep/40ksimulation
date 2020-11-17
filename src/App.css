@@ -3,12 +3,11 @@
 }
 #container {
   display: grid;
-  grid-template-columns: auto 600px auto;
-  grid-template-rows: 10% 440px auto;
+  grid-template-columns: auto 700px auto;
+  grid-template-rows: 10% 90%;
   grid-template-areas:
     'theHead theHead theHead'
-    'theDices theField theInfo'
-    'theFoot theFoot theFoot';
+    'theDices theField theInfo';
   grid-gap: 1px;
 }
 #upperHeader {
@@ -27,21 +26,13 @@
   background: black;
   color: white;
 }
-#FooterDown {
+#dices {
   grid-area: theDices;
   border-style: solid;
   text-align: center;
   font-size: 15px;
   background: dodgerBlue;
   color: orange;
-}
-#OffField {
-  grid-area: theFoot;
-  border-style: solid;
-  text-align: center;
-  font-size: 15px;
-  background: darkGray;
-  color: white;
 }
 #Information {
   grid-area: theInfo;
@@ -54,12 +45,8 @@
 #battleField {
   background: darkGreen;
   color: white;
-  width: 600px;
-  height: 440px;
-}
-#offTheField {
-  background: gray;
-  color: white;
-  width: 600px;
-  height: auto;
+  width: 700px;
+  height: 700px;
+  border-style: solid;
+  border-color: orange;
 }
