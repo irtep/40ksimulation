@@ -4,7 +4,7 @@ function mmToInchesToBf(mmValue) {
   //inch == mm / 25,4
   // battlefield size is inches
   // not sure if this is right or even close..
-  return mmValue / 25.4 * 10;
+  return mmValue / 25.4 * 8;
 }
 // this will get base sizes right
 export function convertBases(form, sizes) {
@@ -36,8 +36,16 @@ export function convertModel(modelsName, modelsActivated) {
   newModel.id = newModel.name+newModel.location.x+newModel.location.y;
   return newModel;
 }
+export function distanceCheck(subj, obj) {
+  //console.log('distance checker ', subj, obj);
+  const dx = subj.x - obj.x;
+  const dy = subj.y - obj.y;
+  const distance = Math.sqrt(dx * dx + dy * dy);
+
+  return distance;
+};
 // this draw models and terrains to fields
-export function draw(canvas, troops, buildings, hovers) {
+export function draw(canvas, troops, buildings, hovers, modelClicked, orderSelected) {
   canvas.getContext("2d").clearRect(0,0,canvas.width,canvas.height);  // clear all
   //console.log('hovers: ', hovers);
   const ctx = canvas.getContext('2d');
@@ -63,8 +71,22 @@ export function draw(canvas, troops, buildings, hovers) {
     ctx.fillStyle = 'white';
     ctx.fillText (item.name, item.location.x, item.location.y-30);
     ctx.fill();
+    ctx.fillStyle = 'red';
+    ctx.fillText ('wounds '+ item.statLine[0].w, item.location.x, item.location.y-20);
+    ctx.fill();
+    ctx.closePath();
   });
-  // paint hovers
+  // paint distance
+  if (modelClicked !== '' && (orderSelected === 'move' || orderSelected === 'check distance')) {
+    const activated = troops.filter( model => model.id === modelClicked);
+    const distance = distanceCheck(hovers, activated[0].location);
+    const convertedDistance = parseInt(distance);
+    ctx.beginPath();
+    ctx.arc(hovers.x, hovers.y, 3, 0, 2 * Math.PI);
+    ctx.fillText ('distance here: '+ convertedDistance / 10 + ' inches', hovers.x+10, hovers.y-30);
+    ctx.fill();
+    ctx.closePath();
+  }
   /*
   ctx.beginPath();
   ctx.arc(hovers.x, hovers.y, 10, 0, 2 * Math.PI);
@@ -73,19 +95,18 @@ export function draw(canvas, troops, buildings, hovers) {
   ctx.fill();
   ctx.closePath();
   */
-    // field borders
-    ctx.beginPath();
-    ctx.strokeStyle = 'white';
-    ctx.rect(0, 0, 700, 440);
-    ctx.stroke();
-    ctx.closePath();
-    // deployment lines
-    ctx.beginPath();
-    ctx.strokeStyle = 'yellow';
-    ctx.rect(0, 146, 700, 146);
-    ctx.stroke();
-    ctx.closePath();
-
+  // field borders
+  ctx.beginPath();
+  ctx.strokeStyle = 'white';
+  ctx.rect(0, 0, 700, 440);
+  ctx.stroke();
+  ctx.closePath();
+  // deployment lines
+  ctx.beginPath();
+  ctx.strokeStyle = 'yellow';
+  ctx.rect(0, 146, 700, 146);
+  ctx.stroke();
+  ctx.closePath();
 
   /*
   Model {name: "guardsman", statLine: Array(1), weapons: Array(2), rules: "", location: {…}, …}

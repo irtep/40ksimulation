@@ -12,6 +12,10 @@ class Field extends Component {
     this.clickControl = this.clickControl.bind(this);
   }
   hovering(e) {
+    /*
+    modelClicked = {this.state.modelClicked}
+    orderSelected = {this.state.orderSelected}
+    */
     // get mouse locations offsets to get where mouse is hovering.
     const thisField = document.getElementById(this.props.name);
     let r = thisField.getBoundingClientRect();
@@ -19,7 +23,8 @@ class Field extends Component {
     let y = e.clientY - r.top;
     const hoveringDetails = {canvas: this.props.name, x: x, y: y};
     if (this.props.modelsInGame.length !== 0) {
-      draw(thisField, this.props.modelsInGame, this.props.terrains, hoveringDetails);
+      draw(thisField, this.props.modelsInGame, this.props.terrains, hoveringDetails,
+      this.props.modelClicked, this.props.orderSelected);
     }
   }
   clickControl(e) {
@@ -40,17 +45,16 @@ class Field extends Component {
       }
       const collision = arcVsArc(modelo.location, hoveringDetails, baseSize, 5);
       if (collision) {
-        console.log('scanned: ', modelo.id);
         collisionDetected = true;
         // send clicked soldiers name to parent
         this.props.dataReceiver(modelo.id);
       }
     });
-    console.log('collision detected: ', collisionDetected);
     if (collisionDetected === false) {
       // send info that click didnt hit any model
       this.props.dataReceiver({where: 'empty click', coords: hoveringDetails});
     }
+    // could draw after click too 
   }
   render() {
     return(
