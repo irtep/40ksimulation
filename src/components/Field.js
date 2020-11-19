@@ -29,7 +29,7 @@ class Field extends Component {
     let x = e.clientX - r.left;
     let y = e.clientY - r.top;
     const hoveringDetails = {canvas: this.props.name, x: x, y: y};
-
+    let collisionDetected = false;
     const searchLocation = this.props.modelsInGame.map( modelo => {
       // make collision check if this is being hovered atm.
       let baseSize = null;
@@ -41,10 +41,16 @@ class Field extends Component {
       const collision = arcVsArc(modelo.location, hoveringDetails, baseSize, 5);
       if (collision) {
         console.log('scanned: ', modelo.id);
+        collisionDetected = true;
         // send clicked soldiers name to parent
         this.props.dataReceiver(modelo.id);
       }
     });
+    console.log('collision detected: ', collisionDetected);
+    if (collisionDetected === false) {
+      // send info that click didnt hit any model
+      this.props.dataReceiver({where: 'empty click', coords: hoveringDetails});
+    }
   }
   render() {
     return(

@@ -4,6 +4,7 @@ import Menu from './components/Menu.js';
 import DiceBox from './components/DiceBox.js';
 import InfoBox from './components/InfoBox.js';
 import { convertModel } from './functions.js';
+import { modelActions } from './data/variables.js';
 import './App.css';
 
 class App extends Component {
@@ -18,19 +19,37 @@ class App extends Component {
     this.fromFieldToApp = this.fromFieldToApp.bind(this);
   }
   fromFieldToApp(e) {
-    this.setState({modelClicked: e ,
-      fromStateToInfoBox: 'modelChosen'}
+    // clicked empty space
+    if (typeof e === 'object') {
+      console.log('empty click detected, coords:' , e.coords);
+      if (this.state.orderSelected === 'move') {
+        console.log('move active, empty space clicked, state', this.state);
+        console.log('should now mode selected model to ', e.coords, ' then empty model selected');
+      }
+    } else {
+      this.setState({modelClicked: e ,
+        fromStateToInfoBox: 'modelChosen'
+      }
     );
+
+    }
   }
   fromMenuToInfoBox(elem) {
     // transfer data from Menu to InfoBox
     this.setState({fromStateToInfoBox: elem});
   }
   fromInboxToApp(elem) {
-    const modelsInGame = this.state.modelsInGame;
-    const converted = convertModel(elem, modelsInGame.length);
-    modelsInGame.push(converted);
-    this.setState({modelsInGame});
+    // check if this is new model or order
+    const orders = modelActions.filter( order => order.name === elem);
+    // create new model
+    if (orders.length === 0) {
+      const modelsInGame = this.state.modelsInGame;
+      const converted = convertModel(elem, modelsInGame.length);
+      modelsInGame.push(converted);
+      this.setState({modelsInGame});
+    } else {
+      this.setState({orderSelected: elem});
+    }
   }
   componentDidUpdate(){
     console.log('state now: ', this.state);
