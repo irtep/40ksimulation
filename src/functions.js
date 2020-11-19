@@ -14,7 +14,7 @@ export function convertBases(form, sizes) {
   if (form === 'square') {
     const w = mmToInchesToBf(sizes[0]);
     const h = mmToInchesToBf(sizes[1]);
-    return [w, h];
+    return [w, h, 0];
   }
 }
 // calls random dice, for example 6 is 1d6

@@ -23,12 +23,12 @@ class App extends Component {
   }
   fromFieldToApp(e) {
     // clicked empty space
-    if (typeof e === 'object') {
       // orders
       if (this.state.modelClicked !== '') {
         // move
         if (this.state.orderSelected === 'move') {
           // identificate the correct model from state
+          console.log('move');
           const moving = this.state.modelsInGame.filter( model => model.id === this.state.modelClicked);
           // set coords for that model
           moving[0].location.x = e.coords.x;
@@ -41,52 +41,11 @@ class App extends Component {
         }
         // check distance
         if (this.state.orderSelected === 'check distance') {
-          // identificate the correct model from state
-          const activated = this.state.modelsInGame.filter( model => model.id === this.state.modelClicked);
           this.setState({
             orderSelected: '',
             modelClicked: '',
           });
         }
-        // pivot right
-        if (this.state.orderSelected === 'check distance') {
-          // identificate the correct model from state
-          const activated = this.state.modelsInGame.filter( model => model.id === this.state.modelClicked);
-          this.setState({
-            orderSelected: '',
-            modelClicked: '',
-          });
-        }
-        // pivot left
-        if (this.state.orderSelected === 'check distance') {
-          // identificate the correct model from state
-          const activated = this.state.modelsInGame.filter( model => model.id === this.state.modelClicked);
-          this.setState({
-            orderSelected: '',
-            modelClicked: '',
-          });
-        }
-        // wounds -
-        if (this.state.orderSelected === '-1 wound') {
-          // identificate the correct model from state
-          const activated = this.state.modelsInGame.filter( model => model.id === this.state.modelClicked);
-          activated[0].statLine[0].w =- 1;
-          this.setState({
-            orderSelected: '',
-            modelClicked: '',
-          });
-        }
-        // wounds +
-        if (this.state.orderSelected === 'check distance') {
-          // identificate the correct model from state
-          const activated = this.state.modelsInGame.filter( model => model.id === this.state.modelClicked);
-          this.setState({
-            orderSelected: '',
-            modelClicked: '',
-          });
-        }
-
-      }
     } else {
       this.setState({
         modelClicked: e ,
@@ -113,7 +72,53 @@ class App extends Component {
     }
   }
   componentDidUpdate(){
-    console.log('state now: ', this.state);
+    //console.log('state now: ', this.state);
+    if (this.state.modelClicked !== '') {
+      // pivot right
+      if (this.state.orderSelected === 'pivot right') {
+        // identificate the correct model from state
+        const activated = this.state.modelsInGame.filter( model => model.id === this.state.modelClicked);
+        if (activated[0].baseForm === 'square') {
+          activated[0].baseSize[2] += 45;
+        }
+        this.setState({
+          orderSelected: '',
+          modelClicked: '',
+        });
+      }
+      // pivot left
+      if (this.state.orderSelected === 'pivot left') {
+        // identificate the correct model from state
+        const activated = this.state.modelsInGame.filter( model => model.id === this.state.modelClicked);
+        if (activated[0].baseForm === 'square') {
+          activated[0].baseSize[2] -= 45;
+        }
+        this.setState({
+          orderSelected: '',
+          modelClicked: '',
+        });
+      }
+      // wounds -
+      if (this.state.orderSelected === '-1 wound') {
+        // identificate the correct model from state
+        const activated = this.state.modelsInGame.filter( model => model.id === this.state.modelClicked);
+        activated[0].statLine[0].w = activated[0].statLine[0].w - 1;
+        this.setState({
+          orderSelected: '',
+          modelClicked: '',
+        });
+      }
+      // wounds +
+      if (this.state.orderSelected === '+1 wound') {
+        // identificate the correct model from state
+        const activated = this.state.modelsInGame.filter( model => model.id === this.state.modelClicked);
+        activated[0].statLine[0].w += 1;
+        this.setState({
+          orderSelected: '',
+          modelClicked: '',
+        });
+      }
+    }
     // call draw... doenst seems to work here so disabled
     //draw(bfield, this.state.modelsInGame, this.state.terrains, {x: 0, y: 0});
   //  if (this.state.modelsInGame.length !== 0 && this.state.hovers !== undefined) {
