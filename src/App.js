@@ -6,13 +6,16 @@ import InfoBox from './components/InfoBox.js';
 import { convertModel } from './functions.js';
 import { modelActions } from './data/variables.js';
 import './App.css';
+//const bfield = document.getElementById('battleField');
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
       modelsInGame: [],
-      terrains: []
+      terrains: [],
+      modelClicked: '',
+      orderSelected: ''
     }
     this.fromMenuToInfoBox = this.fromMenuToInfoBox.bind(this);
     this.fromInboxToApp = this.fromInboxToApp.bind(this);
@@ -21,17 +24,75 @@ class App extends Component {
   fromFieldToApp(e) {
     // clicked empty space
     if (typeof e === 'object') {
-      console.log('empty click detected, coords:' , e.coords);
-      if (this.state.orderSelected === 'move') {
-        console.log('move active, empty space clicked, state', this.state);
-        console.log('should now mode selected model to ', e.coords, ' then empty model selected');
+      // orders
+      if (this.state.modelClicked !== '') {
+        // move
+        if (this.state.orderSelected === 'move') {
+          // identificate the correct model from state
+          const moving = this.state.modelsInGame.filter( model => model.id === this.state.modelClicked);
+          // set coords for that model
+          moving[0].location.x = e.coords.x;
+          moving[0].location.y = e.coords.y;
+          // reset orderSelected
+          this.setState({
+            orderSelected: '',
+            modelClicked: '',
+          });
+        }
+        // check distance
+        if (this.state.orderSelected === 'check distance') {
+          // identificate the correct model from state
+          const activated = this.state.modelsInGame.filter( model => model.id === this.state.modelClicked);
+          this.setState({
+            orderSelected: '',
+            modelClicked: '',
+          });
+        }
+        // pivot right
+        if (this.state.orderSelected === 'check distance') {
+          // identificate the correct model from state
+          const activated = this.state.modelsInGame.filter( model => model.id === this.state.modelClicked);
+          this.setState({
+            orderSelected: '',
+            modelClicked: '',
+          });
+        }
+        // pivot left
+        if (this.state.orderSelected === 'check distance') {
+          // identificate the correct model from state
+          const activated = this.state.modelsInGame.filter( model => model.id === this.state.modelClicked);
+          this.setState({
+            orderSelected: '',
+            modelClicked: '',
+          });
+        }
+        // wounds -
+        if (this.state.orderSelected === '-1 wound') {
+          // identificate the correct model from state
+          const activated = this.state.modelsInGame.filter( model => model.id === this.state.modelClicked);
+          activated[0].statLine[0].w =- 1;
+          this.setState({
+            orderSelected: '',
+            modelClicked: '',
+          });
+        }
+        // wounds +
+        if (this.state.orderSelected === 'check distance') {
+          // identificate the correct model from state
+          const activated = this.state.modelsInGame.filter( model => model.id === this.state.modelClicked);
+          this.setState({
+            orderSelected: '',
+            modelClicked: '',
+          });
+        }
+
       }
     } else {
-      this.setState({modelClicked: e ,
+      this.setState({
+        modelClicked: e ,
         fromStateToInfoBox: 'modelChosen'
-      }
-    );
-
+        }
+      );
     }
   }
   fromMenuToInfoBox(elem) {
@@ -53,6 +114,8 @@ class App extends Component {
   }
   componentDidUpdate(){
     console.log('state now: ', this.state);
+    // call draw... doenst seems to work here so disabled
+    //draw(bfield, this.state.modelsInGame, this.state.terrains, {x: 0, y: 0});
   //  if (this.state.modelsInGame.length !== 0 && this.state.hovers !== undefined) {
   //    draw(inField, outField, this.state.modelsInGame, this.state.terrains, hoveringDetails);
 //    }
@@ -73,6 +136,8 @@ class App extends Component {
             modelsInGame = {this.state.modelsInGame}
             terrains = {this.state.terrains}
             dataReceiver = {this.fromFieldToApp}
+            modelClicked = {this.state.modelClicked}
+            orderSelected = {this.state.orderSelected}
             />
         </div>
         <div id= "information">

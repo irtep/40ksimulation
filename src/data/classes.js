@@ -17,6 +17,14 @@ export class Model {
      weapons ${this.weapons}<br>rules:  ${this.rules}`;
     return stringToSend;
   }
+  set editWounds(where) {
+    console.log('adding or deducting: ', where);
+    if (where === 'add') {
+      this.statsLine.w =+ 1;
+    } else {
+      this.statsLine.w -= 1;
+    }
+  }
 }
 export class Terrain {
   constructor(name, type, color, location, baseForm, baseSize){
