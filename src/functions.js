@@ -27,12 +27,14 @@ export function convertModel(modelsName, modelsActivated) {
   // hulls.filter( hull => hull.name === ship.hull)
   const convertedModel = models.filter( mod => mod.name === modelsName);
   console.log('converted model: ', convertedModel);
+  // make a copy of model
+  const newModel = JSON.parse(JSON.stringify(convertedModel[0]));
   // give x and y
-  const newX = 100 + (modelsActivated * 100);
-  convertedModel[0].location.x = newX;
-  convertedModel[0].location.y = 100;
-  convertedModel[0].id = convertedModel[0].name+convertedModel[0].location.x+convertedModel[0].location.y;
-  return convertedModel[0];
+  const newX = 30 + (modelsActivated * 30);
+  newModel.location.x = newX;
+  newModel.location.y = 500;
+  newModel.id = newModel.name+newModel.location.x+newModel.location.y;
+  return newModel;
 }
 // this draw models and terrains to fields
 export function draw(canvas, troops, buildings, hovers) {
@@ -49,9 +51,9 @@ export function draw(canvas, troops, buildings, hovers) {
       ctx.fill();
     } else if (item.baseForm === 'square') {
       ctx.save(); // save coords system
-      ctx.translate(item.location.x + item.baseSize[0]/2, item.location.y + item.baseSize[1]/2);
+      ctx.translate(item.location.x, item.location.y);
       ctx.rotate(item.baseSize[2] * Math.PI/180);
-      ctx.rect(0, 0, item.baseSize[0], item.baseSize[1]);
+      ctx.rect(0-item.baseSize[0]/2, 0-item.baseSize[1]/2, item.baseSize[0], item.baseSize[1]);
       ctx.fill();
       ctx.restore(); // restore saved coords
     }
