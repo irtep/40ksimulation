@@ -1,10 +1,10 @@
-import { models } from './data/unitsAndTerrain';
+import { models, terrain } from './data/unitsAndTerrain';
 // this will convert sizes from millimetres, to battlefield size
 function mmToInchesToBf(mmValue) {
   //inch == mm / 25,4
   // battlefield size is inches
   // not sure if this is right or even close..
-  return mmValue / 25.4 * 5;
+  return mmValue / 25.4 * 3;
 }
 // this will get base sizes right
 export function convertBases(form, sizes) {
@@ -39,29 +39,28 @@ export function generateThrows(orders) {
 export function convertModel(modelsName, modelsActivated) {
   // hulls.filter( hull => hull.name === ship.hull)
   const convertedModel = models.filter( mod => mod.name === modelsName);
-  console.log('converted model: ', convertedModel);
   // make a copy of model
   const newModel = JSON.parse(JSON.stringify(convertedModel[0]));
   // give x and y
   const newX = 30 + (modelsActivated * 30);
   newModel.location.x = newX;
   newModel.location.y = 500;
+  if (modelsActivated > 40) {newModel.location.y = 560;}
+  if (modelsActivated > 80) {newModel.location.y = 600;}
   newModel.id = newModel.name+newModel.location.x+newModel.location.y;
   return newModel;
 }
 export function distanceCheck(subj, obj) {
-  //console.log('distance checker ', subj, obj);
   const dx = subj.x - obj.x;
   const dy = subj.y - obj.y;
   const distance = Math.sqrt(dx * dx + dy * dy);
-
   return distance;
 };
 // this draw models and terrains to fields
 export function draw(canvas, troops, buildings, hovers, modelClicked, orderSelected) {
-  canvas.getContext("2d").clearRect(0,0,canvas.width,canvas.height);  // clear all
-  //console.log('hovers: ', hovers);
+  canvas.getContext("2d").clearRect(0,0,canvas.width,canvas.height);
   const ctx = canvas.getContext('2d');
+  // paint troops
   troops.forEach((item, i) => {
     //console.log('drawing: ', item);
     ctx.beginPath();
@@ -98,14 +97,6 @@ export function draw(canvas, troops, buildings, hovers, modelClicked, orderSelec
     ctx.fill();
     ctx.closePath();
   }
-  /*
-  ctx.beginPath();
-  ctx.arc(hovers.x, hovers.y, 10, 0, 2 * Math.PI);
-  ctx.fill();
-  ctx.rect(150, 300, 100, 100);
-  ctx.fill();
-  ctx.closePath();
-  */
   // field borders
   ctx.beginPath();
   ctx.strokeStyle = 'white';
@@ -118,41 +109,15 @@ export function draw(canvas, troops, buildings, hovers, modelClicked, orderSelec
   ctx.rect(0, 146, 700, 146);
   ctx.stroke();
   ctx.closePath();
+  // paint terrain
+  terrain.forEach((item, i) => {
+    ctx.beginPath();
+    ctx.fillStyle = 'gray';
+    ctx.rect(item.x, item.y, item.w, item.h);
+    ctx.fill();
+    ctx.closePath();
+  });
 
-  /*
-  Model {name: "guardsman", statLine: Array(1), weapons: Array(2), rules: "", location: {…}, …}
-  baseForm: "circle"
-  baseSize: 98.4251968503937
-  location: {inField: false, x: null, y: null}
-  name: "guardsman"
-  rules: ""
-  statLine: Array(1)
-  0: Stats {m: 6, ws: 4, bs: 4, s: 3, t: 3, …}
-  length: 1
-  __proto__: Array(0)
-  weapons: (2) ["lasgun", "frag grenades"]
-  x: 100
-  y: 100
-  showStats: (...)
-  __proto__:
-  constructor: class Model
-  showStats: (...)
-  get showStats: ƒ showStats()
-  __proto__: Object
-  functions.js:40 drawing:
-  Model {name: "Lemann Russ BT", statLine: Array(3), weapons: Array(2), rules: "", location: {…}, …}
-  baseForm: "square"
-  baseSize: (2) [307.0866141732284, 472.44094488188983]
-  location: {inField: false, x: null, y: null}
-  name: "Lemann Russ BT"
-  rules: ""
-  statLine: (3) [Stats, Stats, Stats]
-  weapons: (2) ["battle cannon", "heavy bolter"]
-  x: 200
-  y: 100
-  showStats: (...)
-  __proto__: Object
-  */
 }
 // collision detect arc vs arc
 export function arcVsArc(sub, obj, subSize, objSize) {
