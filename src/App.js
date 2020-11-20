@@ -37,6 +37,7 @@ class App extends Component {
           this.setState({
             orderSelected: '',
             modelClicked: '',
+            fromStateToInfoBox: ''
           });
         }
         // check distance
@@ -84,6 +85,7 @@ class App extends Component {
         this.setState({
           orderSelected: '',
           modelClicked: '',
+          fromStateToInfoBox: ''
         });
       }
       // pivot left
@@ -96,6 +98,7 @@ class App extends Component {
         this.setState({
           orderSelected: '',
           modelClicked: '',
+          fromStateToInfoBox: ''
         });
       }
       // wounds -
@@ -106,6 +109,7 @@ class App extends Component {
         this.setState({
           orderSelected: '',
           modelClicked: '',
+          fromStateToInfoBox: ''
         });
       }
       // wounds +
@@ -116,6 +120,7 @@ class App extends Component {
         this.setState({
           orderSelected: '',
           modelClicked: '',
+          fromStateToInfoBox: ''
         });
       }
     }
