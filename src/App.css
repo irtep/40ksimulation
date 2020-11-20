@@ -1,5 +1,7 @@
 * {/*
   height: 100%;*/
+  padding: 2px;
+  margin: 2px;
 }
 #container {
   display: grid;
@@ -12,7 +14,6 @@
 }
 #upperHeader {
   grid-area: theHead;
-  border-style: solid;
   text-align: center;
   font-size: 15px;
   background: blue;
@@ -20,23 +21,19 @@
 }
 #centerField {
   grid-area: theField;
-  border-style: solid;
   text-align: center;
   font-size: 15px;
-  background: black;
-  color: white;
 }
 #dices {
+  padding: 3px;
   grid-area: theDices;
-  border-style: solid;
   text-align: center;
   font-size: 15px;
   background: dodgerBlue;
-  color: orange;
+  color: black;
 }
 #Information {
   grid-area: theInfo;
-  border-style: solid;
   text-align: center;
   font-size: 15px;
   background: darkGray;
@@ -48,5 +45,8 @@
   width: 700px;
   height: 700px;
   border-style: solid;
-  border-color: orange;
+  border-color: black;
+}
+.diceInputs {
+  width: 60px;
 }

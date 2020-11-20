@@ -4,7 +4,7 @@ function mmToInchesToBf(mmValue) {
   //inch == mm / 25,4
   // battlefield size is inches
   // not sure if this is right or even close..
-  return mmValue / 25.4 * 8;
+  return mmValue / 25.4 * 5;
 }
 // this will get base sizes right
 export function convertBases(form, sizes) {
@@ -18,9 +18,22 @@ export function convertBases(form, sizes) {
   }
 }
 // calls random dice, for example 6 is 1d6
-export function callDice(max){
+export function callDice(max) {
     const result =  1 + Math.floor(Math.random() * max);
     return result;
+}
+export function generateThrows(orders) {
+  const results = [ [], [], [] ]
+  orders.forEach((item, i) => {
+    if (item !== '') {
+      for (let ii = 0; ii < item; ii++) {
+        results[i].push(callDice(6));
+      }
+    } else {
+      console.log('nothing at');
+    }
+  });
+  return results;
 }
 // converts name of model to ingame model
 export function convertModel(modelsName, modelsActivated) {
@@ -70,8 +83,6 @@ export function draw(canvas, troops, buildings, hovers, modelClicked, orderSelec
     ctx.beginPath();
     ctx.fillStyle = 'white';
     ctx.fillText (item.name, item.location.x, item.location.y-30);
-    ctx.fill();
-    ctx.fillStyle = 'red';
     ctx.fillText ('wounds '+ item.statLine[0].w, item.location.x, item.location.y-20);
     ctx.fill();
     ctx.closePath();

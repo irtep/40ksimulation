@@ -1,18 +1,49 @@
 import React, { Component } from "react";
+import { generateThrows } from '../functions.js'
 import '../App.css';
 
 class DiceBox extends Component {
   constructor() {
     super();
-    this.state = {
-      army1: [],
-      army2: []
-    }
+    this.clickControl = this.clickControl.bind(this);
+  }
+  clickControl(e) {
+    const whites = document.getElementById('whites');
+    const blacks = document.getElementById('blacks');
+    const greens = document.getElementById('greens');
+    const tohit = document.getElementById('toHit').value;
+    const diceResults = document.getElementById('diceResults');
+    const fields = [whites, blacks, greens];
+    const diceOrders = [whites.value, blacks.value, greens.value];
+    const generatedThrows = generateThrows(diceOrders);
+    diceResults.innerHTML = '';
+    let hits = 0;
+    let desc = '';
+    generatedThrows.forEach((item, i) => {
+      hits = 0;
+      desc = `${fields[i].id}: `;
+      item.forEach((item2, ii) => {
+        desc += `${item2} `;
+        if (item2 >= tohit) {
+          hits++;
+        }
+      });
+      diceResults.innerHTML += `${desc}. hits/wounds: ${hits} <br/>`;
+    });
+
+    console.log('generated: ', generateThrows(diceOrders));
+    console.log('diceOrders: ', diceOrders);
   }
   render() {
     return(
       <div>
-        dice box
+        <input id= "whites" type= "number" className= "diceInputs"/>x white dices.<br/>
+        <input id= "blacks" type= "number" className= "diceInputs"/>x black dices.<br/>
+        <input id= "greens" type= "number" className= "diceInputs"/>x green dices.<br/>
+        to hit/wound: <input id= "toHit" type= "number" className= "diceInputs"/><br/>
+        <input id= "throw" type= "button" value= "throw dices" onClick= {this.clickControl}/><br/>
+        <div id= "diceResults">
+        </div>
       </div>
     );
   }
