@@ -60,6 +60,14 @@ export function distanceCheck(subj, obj) {
 export function draw(canvas, troops, buildings, hovers, modelClicked, orderSelected) {
   canvas.getContext("2d").clearRect(0,0,canvas.width,canvas.height);
   const ctx = canvas.getContext('2d');
+  // paint terrain
+  terrain.forEach((item, i) => {
+    ctx.beginPath();
+    ctx.fillStyle = 'gray';
+    ctx.rect(item.x, item.y, item.w, item.h);
+    ctx.fill();
+    ctx.closePath();
+  });
   // paint troops
   troops.forEach((item, i) => {
     //console.log('drawing: ', item);
@@ -89,13 +97,18 @@ export function draw(canvas, troops, buildings, hovers, modelClicked, orderSelec
   // paint distance
   if (modelClicked !== '' && (orderSelected === 'move' || orderSelected === 'check distance')) {
     const activated = troops.filter( model => model.id === modelClicked);
-    const distance = distanceCheck(hovers, activated[0].location);
-    const convertedDistance = parseInt(distance);
-    ctx.beginPath();
-    ctx.arc(hovers.x, hovers.y, 3, 0, 2 * Math.PI);
-    ctx.fillText ('distance here: '+ convertedDistance / 10 + ' inches', hovers.x+10, hovers.y-30);
-    ctx.fill();
-    ctx.closePath();
+    // ok, some bug-fix ifs here..
+    if (activated[0] !== undefined) {
+      if (activated[0].location !== undefined) {
+        const distance = distanceCheck(hovers, activated[0].location);
+        const convertedDistance = parseInt(distance);
+        ctx.beginPath();
+        ctx.arc(hovers.x, hovers.y, 3, 0, 2 * Math.PI);
+        ctx.fillText ('distance here: '+ convertedDistance / 10 + ' inches', hovers.x+10, hovers.y-30);
+        ctx.fill();
+        ctx.closePath();
+      }
+    }
   }
   // field borders
   ctx.beginPath();
@@ -109,15 +122,6 @@ export function draw(canvas, troops, buildings, hovers, modelClicked, orderSelec
   ctx.rect(0, 146, 700, 146);
   ctx.stroke();
   ctx.closePath();
-  // paint terrain
-  terrain.forEach((item, i) => {
-    ctx.beginPath();
-    ctx.fillStyle = 'gray';
-    ctx.rect(item.x, item.y, item.w, item.h);
-    ctx.fill();
-    ctx.closePath();
-  });
-
 }
 // collision detect arc vs arc
 export function arcVsArc(sub, obj, subSize, objSize) {
