@@ -80,7 +80,7 @@ export const models = [
     ),
     new Model('berserker',
     //           m  ws bs s t   w  a  l  s
-    [new Stats(6, 4, 4, 3, 3, 1, 1, 6, 5, [1,1])],
+    [new Stats(6, 4, 4, 3, 3, 9, 1, 6, 5, [1,1])],
     ['flamer'],
     '',
     {inField: false, x: null, y: null},
@@ -114,6 +114,24 @@ export const models = [
     'circle',
     32
     ),
+    new Model('noise marine',
+    //           m  ws bs s t   w  a  l  s
+    [new Stats(6, 4, 4, 3, 3, 10, 1, 6, 5, [1,1])],
+    ['flamer'],
+    '',
+    {inField: false, x: null, y: null},
+    'circle',
+    32
+    ),
+    new Model('space marine',
+    //           m  ws bs s t   w  a  l  s
+    [new Stats(6, 4, 4, 3, 3, 6, 1, 6, 5, [1,1])],
+    ['flamer'],
+    '',
+    {inField: false, x: null, y: null},
+    'circle',
+    32
+    ),
   new Model('Lemann Russ BT',
     //           m  ws bs s t   w  a  l  s
     [new Stats(10, 6, 4, 7, 8, 12, 3,  7,   3,    [7,12]),
@@ -128,6 +146,17 @@ export const models = [
     new Model('vindicator',
     //           m  ws bs s t   w  a  l  s
     [new Stats(10, 6, 4, 7, 8, 11, 3,  7,   3,    [7,12]),
+    new Stats (7,  6, 5, 3, 7, 8, 12, 'd3', 7, 3, [6,4]),
+    new Stats (4,  6, 6, 3, 7, 8, 12,  1,   7, 3, [1,3])],
+    ['battle cannon', 'heavy bolter'],
+    '',
+    {inField: false, x: null, y: null},
+    'square',
+    [78,120,0] // w h angle
+    ),
+    new Model('rhino',
+    //           m  ws bs s t   w  a  l  s
+    [new Stats(10, 6, 4, 7, 8, 10, 3,  7,   3,    [7,12]),
     new Stats (7,  6, 5, 3, 7, 8, 12, 'd3', 7, 3, [6,4]),
     new Stats (4,  6, 6, 3, 7, 8, 12,  1,   7, 3, [1,3])],
     ['battle cannon', 'heavy bolter'],
