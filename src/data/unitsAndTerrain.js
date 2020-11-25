@@ -1,5 +1,5 @@
 import { Model, Stats } from './classes.js';
-
+//
 // constructor(name, statLine, weapons, rules, location, baseForm, baseSize)
 // constructor(m, ws, bs, s, t, w, a, ld, sv, woundRange)
 export const models = [
