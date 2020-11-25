@@ -46,15 +46,20 @@ class Field extends Component {
       const collision = arcVsArc(modelo.location, hoveringDetails, baseSize, 5);
       if (collision) {
         collisionDetected = true;
-        // send clicked soldiers name to parent
-        this.props.dataReceiver(modelo.id);
+        if (this.props.orderSelected === '') {
+          // send clicked soldiers name to parent
+          this.props.dataReceiver(modelo.id);
+        } else {
+          // send only empty click if order is selected
+          this.props.dataReceiver({where: 'empty click', coords: hoveringDetails});
+        }
       }
     });
     if (collisionDetected === false) {
       // send info that click didnt hit any model
       this.props.dataReceiver({where: 'empty click', coords: hoveringDetails});
     }
-    // could draw after click too 
+    // could draw after click too
   }
   render() {
     return(

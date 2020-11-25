@@ -31,8 +31,10 @@ class App extends Component {
           console.log('move');
           const moving = this.state.modelsInGame.filter( model => model.id === this.state.modelClicked);
           // set coords for that model
-          moving[0].location.x = e.coords.x;
-          moving[0].location.y = e.coords.y;
+          if (moving[0] !== undefined) {
+            moving[0].location.x = e.coords.x;
+            moving[0].location.y = e.coords.y;
+          }
           // reset orderSelected
           this.setState({
             orderSelected: '',
@@ -73,55 +75,62 @@ class App extends Component {
     }
   }
   componentDidUpdate(){
-    //console.log('state now: ', this.state);
     if (this.state.modelClicked !== '') {
       // pivot right
       if (this.state.orderSelected === 'pivot right') {
         // identificate the correct model from state
         const activated = this.state.modelsInGame.filter( model => model.id === this.state.modelClicked);
-        if (activated[0].baseForm === 'square') {
-          activated[0].baseSize[2] += 45;
+        if (activated[0] !== undefined) {
+          if (activated[0].baseForm === 'square') {
+            activated[0].baseSize[2] += 45;
+          }
+          this.setState({
+            orderSelected: '',
+            modelClicked: '',
+            fromStateToInfoBox: ''
+          });
         }
-        this.setState({
-          orderSelected: '',
-          modelClicked: '',
-          fromStateToInfoBox: ''
-        });
       }
       // pivot left
       if (this.state.orderSelected === 'pivot left') {
         // identificate the correct model from state
         const activated = this.state.modelsInGame.filter( model => model.id === this.state.modelClicked);
-        if (activated[0].baseForm === 'square') {
-          activated[0].baseSize[2] -= 45;
+        if (activated[0] !== undefined) {
+          if (activated[0].baseForm === 'square') {
+            activated[0].baseSize[2] -= 45;
+          }
+          this.setState({
+            orderSelected: '',
+            modelClicked: '',
+            fromStateToInfoBox: ''
+          });
         }
-        this.setState({
-          orderSelected: '',
-          modelClicked: '',
-          fromStateToInfoBox: ''
-        });
       }
       // wounds -
       if (this.state.orderSelected === '-1 wound') {
         // identificate the correct model from state
         const activated = this.state.modelsInGame.filter( model => model.id === this.state.modelClicked);
-        activated[0].statLine[0].w = activated[0].statLine[0].w - 1;
-        this.setState({
-          orderSelected: '',
-          modelClicked: '',
-          fromStateToInfoBox: ''
-        });
+        if (activated[0] !== undefined) {
+          activated[0].statLine[0].w = activated[0].statLine[0].w - 1;
+          this.setState({
+            orderSelected: '',
+            modelClicked: '',
+            fromStateToInfoBox: ''
+          });
+        }
       }
       // wounds +
       if (this.state.orderSelected === '+1 wound') {
         // identificate the correct model from state
         const activated = this.state.modelsInGame.filter( model => model.id === this.state.modelClicked);
-        activated[0].statLine[0].w += 1;
-        this.setState({
-          orderSelected: '',
-          modelClicked: '',
-          fromStateToInfoBox: ''
-        });
+        if (activated[0] !== undefined) {
+          activated[0].statLine[0].w += 1;
+          this.setState({
+            orderSelected: '',
+            modelClicked: '',
+            fromStateToInfoBox: ''
+          });
+        }
       }
     }
     // call draw... doenst seems to work here so disabled

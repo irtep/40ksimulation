@@ -44,6 +44,15 @@ class DiceBox extends Component {
         <input id= "throw" type= "button" value= "throw dices" onClick= {this.clickControl}/><br/>
         <div id= "diceResults">
         </div>
+        <div id= "vps">
+        <p>
+        <input type= "number" className= "diceInputs"/>ig CPs.<br/>
+        <input type= "number" className= "diceInputs"/>ig VP.<br/>
+        <input type= "number" className= "diceInputs"/>TURN.<br/>
+        <input type= "number" className= "diceInputs"/>bl CP.<br/>
+        <input type= "number" className= "diceInputs"/>bl VP<br/>
+        </p>
+        </div>
       </div>
     );
   }
