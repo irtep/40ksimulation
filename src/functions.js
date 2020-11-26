@@ -58,6 +58,8 @@ export function distanceCheck(subj, obj) {
 };
 // this draw models and terrains to fields
 export function draw(canvas, troops, buildings, hovers, modelClicked, orderSelected) {
+  const objectiveRows = 3;
+  const objectiveColumns = 3;
   canvas.getContext("2d").clearRect(0,0,canvas.width,canvas.height);
   const ctx = canvas.getContext('2d');
   // paint terrain
@@ -122,6 +124,21 @@ export function draw(canvas, troops, buildings, hovers, modelClicked, orderSelec
   ctx.rect(0, 146, 700, 146);
   ctx.stroke();
   ctx.closePath();
+  // objectives
+  ctx.fillStyle = 'gold';
+  for (let i = 0; i < objectiveRows; i++) {
+   for (let ii = 0; ii < objectiveColumns; ii++) {
+     const startW = 120;
+     const startH = 20;
+      const differenceW = 240;
+      const differenceH = 200;
+      ctx.beginPath();
+      ctx.arc(startW + (differenceW*i), startH + (differenceH*ii), 3, 0, 2 * Math.PI);
+      ctx.fill();
+      ctx.closePath();
+    }
+  }
+
 }
 // collision detect arc vs arc
 export function arcVsArc(sub, obj, subSize, objSize) {
