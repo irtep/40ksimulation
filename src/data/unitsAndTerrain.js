@@ -78,6 +78,15 @@ export const models = [
     'circle',
     25
     ),
+    new Model('missile guardsmen',
+  //           m  ws bs s t   w  a  l  s
+    [new Stats(6, 4, 4, 3, 3, 1, 1, 6, 5, [1,1])],
+    ['flamer'],
+    '',
+    {inField: false, x: null, y: null},
+    'circle',
+    25
+  ),
     new Model('berserker',
     //           m  ws bs s t   w  a  l  s
     [new Stats(6, 4, 4, 3, 3, 9, 1, 6, 5, [1,1])],
@@ -143,6 +152,39 @@ export const models = [
     'square',
     [78,120,0] // w h angle
     ),
+  new Model('Lemann Russ Era',
+    //           m  ws bs s t   w  a  l  s
+    [new Stats(10, 6, 4, 7, 8, 12, 3,  7,   3,    [7,12]),
+    new Stats (7,  6, 5, 3, 7, 8, 12, 'd3', 7, 3, [6,4]),
+    new Stats (4,  6, 6, 3, 7, 8, 12,  1,   7, 3, [1,3])],
+    ['battle cannon', 'heavy bolter'],
+    '',
+    {inField: false, x: null, y: null},
+    'square',
+    [78,120,0] // w h angle
+  ),
+new Model('Lightning',
+  //           m  ws bs s t   w  a  l  s
+  [new Stats(10, 6, 4, 7, 8, 14, 3,  7,   3,    [7,12]),
+  new Stats (7,  6, 5, 3, 7, 8, 12, 'd3', 7, 3, [6,4]),
+  new Stats (4,  6, 6, 3, 7, 8, 12,  1,   7, 3, [1,3])],
+  ['battle cannon', 'heavy bolter'],
+  '',
+  {inField: false, x: null, y: null},
+  'square',
+  [70,115,0] // w h angle
+),
+new Model('predator',
+//           m  ws bs s t   w  a  l  s
+[new Stats(10, 6, 4, 7, 8, 11, 3,  7,   3,    [7,12]),
+new Stats (7,  6, 5, 3, 7, 8, 12, 'd3', 7, 3, [6,4]),
+new Stats (4,  6, 6, 3, 7, 8, 12,  1,   7, 3, [1,3])],
+['battle cannon', 'heavy bolter'],
+'',
+{inField: false, x: null, y: null},
+'square',
+[78,120,0] // w h angle
+),
     new Model('vindicator',
     //           m  ws bs s t   w  a  l  s
     [new Stats(10, 6, 4, 7, 8, 11, 3,  7,   3,    [7,12]),
@@ -226,6 +268,6 @@ export const terrain = [
   {w: 146, h: 70, x: 340, y: 30},
   {w: 188, h: 30, x: 540, y: 150},
   {w: 106, h: 20, x: 150, y: 350},
-  {w: 96, h: 80, x: 340, y: 450},
+  {w: 96, h: 80, x: 340, y: 250},
   {w: 78, h: 90, x: 240, y: 350}
 ];
