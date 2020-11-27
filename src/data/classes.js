@@ -2,27 +2,25 @@ import { convertBases } from '../functions.js';
 
 // all models are these
 export class Model {
-  constructor(name, statLine, weapons, rules, location, baseForm, baseSize){
+  constructor(name, desc, location, wounds, baseForm, baseSize){
     this.name = name;
-    this.statLine = statLine; // give these in array to support multiProfiles
-    this.weapons = weapons;
-    this.rules = rules;
+    this.statLine = desc;
     this.location = location;
+    this.wounds = wounds;
     this.baseForm = baseForm;
     // circle bases should come as mm value, squares in array [w,h]
     this.baseSize = convertBases(baseForm, baseSize);
   };
   get showStats() {
-    const stringToSend = `${this.name} <br>stats: ${this.statsLine}<br>points: ${this.pointCost}<br>
-     weapons ${this.weapons}<br>rules:  ${this.rules}`;
+    const stringToSend = `${this.name} <br>${this.desc}`;
     return stringToSend;
   }
   set editWounds(where) {
     console.log('adding or deducting: ', where);
     if (where === 'add') {
-      this.statsLine.w =+ 1;
+      this.wounds =+ 1;
     } else {
-      this.statsLine.w -= 1;
+      this.wounds -= 1;
     }
   }
 }
