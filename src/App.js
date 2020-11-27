@@ -111,7 +111,7 @@ class App extends Component {
         // identificate the correct model from state
         const activated = this.state.modelsInGame.filter( model => model.id === this.state.modelClicked);
         if (activated[0] !== undefined) {
-          activated[0].statLine[0].w = activated[0].statLine[0].w - 1;
+          activated[0].wounds = activated[0].wounds - 1;
           this.setState({
             orderSelected: '',
             modelClicked: '',
@@ -124,7 +124,7 @@ class App extends Component {
         // identificate the correct model from state
         const activated = this.state.modelsInGame.filter( model => model.id === this.state.modelClicked);
         if (activated[0] !== undefined) {
-          activated[0].statLine[0].w += 1;
+          activated[0].wounds += 1;
           this.setState({
             orderSelected: '',
             modelClicked: '',

@@ -92,7 +92,7 @@ export function draw(canvas, troops, buildings, hovers, modelClicked, orderSelec
     ctx.beginPath();
     ctx.fillStyle = 'white';
     ctx.fillText (item.name, item.location.x, item.location.y-30);
-    ctx.fillText ('wounds '+ item.statLine[0].w, item.location.x, item.location.y-20);
+    ctx.fillText ('wounds '+ item.wounds, item.location.x, item.location.y-20);
     ctx.fill();
     ctx.closePath();
   });

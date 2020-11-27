@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import '../App.css';
-import ButtonComponent from './ButtonComponent.js';
-import { models } from '../data/unitsAndTerrain.js';
+import ButtonComponent from './ButtonComponent.js';/*
+import { models } from '../data/unitsAndTerrain.js';*/
 
 class Menu extends Component {
   constructor() {
