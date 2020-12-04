@@ -4,7 +4,7 @@ import Menu from './components/Menu.js';
 import DiceBox from './components/DiceBox.js';
 import InfoBox from './components/InfoBox.js';
 import { convertModel } from './functions.js';
-import { modelActions } from './data/variables.js';
+import { modelActions, factions, armies} from './data/variables.js';
 import './App.css';
 //const bfield = document.getElementById('battleField');
 
@@ -15,16 +15,27 @@ class App extends Component {
       modelsInGame: [],
       terrains: [],
       modelClicked: '',
-      orderSelected: ''
+      orderSelected: '',
+      faction : 'black legion', /* defaults to black legion */
+      fromStateToInfoBox: '',
+      additionalI: ''
     }
     this.fromMenuToInfoBox = this.fromMenuToInfoBox.bind(this);
     this.fromInboxToApp = this.fromInboxToApp.bind(this);
     this.fromFieldToApp = this.fromFieldToApp.bind(this);
+    this.dealHover = this.dealHover.bind(this);
+  }
+  dealHover(e) {
+    console.log('hovering in: ', e);
+    if (e !== 'not hovering anywhere') {
+      this.setState({additionalI: e})
+    }
   }
   fromFieldToApp(e) {
     // clicked empty space
       // orders
       if (this.state.modelClicked !== '') {
+        console.log('model is chosen');
         // move
         if (this.state.orderSelected === 'move') {
           // identificate the correct model from state
@@ -50,28 +61,38 @@ class App extends Component {
           });
         }
     } else {
-      this.setState({
-        modelClicked: e ,
-        fromStateToInfoBox: 'modelChosen'
-        }
-      );
-    }
+      if (this.state.modelsInGame.length !== 0) {
+        this.setState({
+          modelClicked: e,
+          fromStateToInfoBox: 'modelChosen'
+          });
+       } else {
+         // reset orderSelected
+         this.setState({
+           orderSelected: '',
+           modelClicked: '',
+           fromStateToInfoBox: ''
+         });
+       }
+     }
   }
   fromMenuToInfoBox(elem) {
     // transfer data from Menu to InfoBox
     this.setState({fromStateToInfoBox: elem});
   }
   fromInboxToApp(elem) {
+    console.log('received from infoBox ', elem);
     // check if this is new model or order
     const orders = modelActions.filter( order => order.name === elem);
+    const factionSelected = factions.filter( fac => fac.name === elem);
+    if (orders.length > 0) {this.setState({orderSelected: elem});}
+    if (factionSelected.length > 0) {this.setState({faction: elem});}
     // create new model
-    if (orders.length === 0) {
+    if (orders.length === 0 && factionSelected.length === 0) {
       const modelsInGame = this.state.modelsInGame;
       const converted = convertModel(elem, modelsInGame.length);
       modelsInGame.push(converted);
       this.setState({modelsInGame});
-    } else {
-      this.setState({orderSelected: elem});
     }
   }
   componentDidUpdate(){
@@ -157,12 +178,15 @@ class App extends Component {
             dataReceiver = {this.fromFieldToApp}
             modelClicked = {this.state.modelClicked}
             orderSelected = {this.state.orderSelected}
+            hoverInfo = {this.dealHover}
             />
         </div>
         <div id= "information">
           <InfoBox
             dataToUse = {this.state.fromStateToInfoBox}
+            chosenFaction = {this.state.faction}
             fromInboxToApp = {this.fromInboxToApp}
+            toAdditionalInfo = {this.state.additionalI}
           />
         </div>
         <div id= "dices">

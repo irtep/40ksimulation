@@ -9,6 +9,7 @@ class DropDownComponent extends Component {
   }
   componentDidMount() {
     /* fill menus */
+    console.log('mounted. options: ', this.props.options);
     this.props.options.forEach( (item) => {
       const o = document.createElement("option");
       o.text = item.name;
@@ -26,6 +27,7 @@ class DropDownComponent extends Component {
     }
     /* fill menus */
     const startOption = document.createElement('option');
+    console.log('options received: ', this.props.options);
     startOption.text = this.props.firstOption;
     select.appendChild(startOption);
     this.props.options.forEach( (item) => {
@@ -38,7 +40,7 @@ class DropDownComponent extends Component {
   }
   collectData(elem){
     //console.log('dd value now: ', elem.target.value);
-    this.props.newModelChosen(elem.target.value);
+    this.props.dataSend(elem.target.value);
   }
   focusedDropdown(element) {
     //console.log('focused: ', element.target.id);

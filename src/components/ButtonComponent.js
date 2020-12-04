@@ -8,7 +8,7 @@ class ButtonComponent extends Component {
   }
   clickControl(e) {
     // send clicked buttons name to parent
-    this.props.dataReceiver(e.target.value);
+    this.props.dataReceiver(this.props.name);
   }
   render() {
     return(

@@ -26,6 +26,28 @@ class Field extends Component {
       draw(thisField, this.props.modelsInGame, this.props.terrains, hoveringDetails,
       this.props.modelClicked, this.props.orderSelected);
     }
+    // send info where hovering:
+    let collisionDetected = false;
+    if (this.props.modelsInGame.length > 0) {
+      const searchLocation = this.props.modelsInGame.map( modelo => {
+        // make collision check if this is being hovered atm.
+        let baseSize = null;
+        if (modelo.baseForm === 'circle') {
+          baseSize = modelo.baseSize;
+        } else {
+          baseSize = modelo.baseSize[1];
+        }
+        const collision = arcVsArc(modelo.location, hoveringDetails, baseSize, 5);
+        if (collision) {
+          collisionDetected = true;
+          this.props.hoverInfo(modelo.name);
+        }
+      });
+      if (collisionDetected === false) {
+        // send info that click didnt hit any model
+        this.props.hoverInfo('not hovering anywhere');
+      }
+    }
   }
   clickControl(e) {
     // get mouse locations offsets to get where mouse is hovering.
