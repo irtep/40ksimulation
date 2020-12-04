@@ -2,14 +2,15 @@ import { convertBases } from '../functions.js';
 
 // all models are these
 export class Model {
-  constructor(name, desc, location, wounds, baseForm, baseSize){
+  constructor(name, desc, location, wounds, baseForm, baseSize, faction){
     this.name = name;
-    this.statLine = desc;
+    this.desc = desc;
     this.location = location;
     this.wounds = wounds;
     this.baseForm = baseForm;
     // circle bases should come as mm value, squares in array [w,h]
     this.baseSize = convertBases(baseForm, baseSize);
+    this.faction = faction;
   };
   get showStats() {
     const stringToSend = `${this.name} <br>${this.desc}`;

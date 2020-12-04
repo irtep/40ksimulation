@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import '../App.css';
-import ButtonComponent from './ButtonComponent.js';/*
-import { models } from '../data/unitsAndTerrain.js';*/
+import ButtonComponent from './ButtonComponent.js';
+import { armies } from '../data/variables.js';
 
 class Menu extends Component {
   constructor() {
@@ -14,13 +14,24 @@ class Menu extends Component {
     // send clicked buttons name to parent
     this.props.fromButtonToInfoBox(val);
   }
-  render() {
+  render() { console.log('armies: ', armies)
     return(
-      <div>
+      <div id= "buttonRow">
         <ButtonComponent
           name = 'Add unit'
           dataReceiver = {this.receiveDataFromChild}
         />
+        {/* add army buttons */}
+        {armies.map(army => {
+          return (
+            <ButtonComponent
+            name={army.name}
+            key = {army.name}
+            dataReceiver = {this.receiveDataFromChild}
+            />
+          )
+          }
+        )}
       </div>
     );
   }

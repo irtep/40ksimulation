@@ -1,7 +1,7 @@
 * {/*
   height: 100%;*/
   padding: 2px;
-  margin: 2px;
+  margin: 5px;
 }
 #container {
   display: grid;
@@ -49,4 +49,14 @@
 }
 .diceInputs {
   width: 60px;
+}
+#additionalInfo {
+  text-align: center;
+}
+#buttonRow {
+  display:flex;
+  flex-direction:row;
+}
+.new-line {
+  white-space: pre-line;
 }
