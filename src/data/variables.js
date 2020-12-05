@@ -9,7 +9,8 @@ export const factions = [
   {name: 'cryx'},
   {name: 'trollbloods'},
   {name: 'circle'},
-  {name: 'khador'}
+  {name: 'khador'},
+  {name: 'mercenary'}
 ];
 export const armies = [
   {name: 'blackLegion1250', units: ['sorcerer', 'vindicator']},

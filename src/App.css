@@ -60,3 +60,11 @@
 .new-line {
   white-space: pre-line;
 }
+.largeTextField {
+  display: inline-block;
+  height: 500px;
+  font-size: 12px;
+  width: 200px;
+  resize: none;
+  overflow: auto;
+}

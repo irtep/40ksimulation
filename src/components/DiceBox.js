@@ -52,6 +52,7 @@ class DiceBox extends Component {
         <input type= "number" className= "diceInputs"/>bl CP.<br/>
         <input type= "number" className= "diceInputs"/>bl VP<br/>
         </p>
+        <textarea className= "largeTextField"/>
         </div>
       </div>
     );

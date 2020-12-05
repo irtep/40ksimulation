@@ -42,11 +42,11 @@ export function convertModel(modelsName, modelsActivated) {
   // make a copy of model
   const newModel = JSON.parse(JSON.stringify(convertedModel[0]));
   // give x and y
-  const newX = 30 + (modelsActivated * 30);
-  newModel.location.x = newX;
+  let newX = 30 + (modelsActivated * 30);
   newModel.location.y = 500;
-  if (modelsActivated > 40) {newModel.location.y = 560;}
-  if (modelsActivated > 80) {newModel.location.y = 600;}
+  if (modelsActivated > 20) {newModel.location.y = 560; newX = 30 + ((modelsActivated-20) * 30)}
+  if (modelsActivated > 40) {newModel.location.y = 600; newX = 30 + ((modelsActivated-40) * 30)}
+  newModel.location.x = newX;
   newModel.id = newModel.name+newModel.location.x+newModel.location.y;
   return newModel;
 }
@@ -124,6 +124,20 @@ export function draw(canvas, troops, buildings, hovers, modelClicked, orderSelec
   ctx.rect(0, 146, 700, 146);
   ctx.stroke();
   ctx.closePath();
+  // hordes field
+  ctx.beginPath();
+  ctx.strokeStyle = 'crimson';
+  ctx.rect(0, 0, 480, 480);
+  ctx.stroke();
+  ctx.closePath();
+  ctx.beginPath();
+  ctx.moveTo(0, 80);
+  ctx.lineTo(480, 80);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(0, 420);
+  ctx.lineTo(480, 420);
+  ctx.stroke();
   // objectives
   ctx.fillStyle = 'gold';
   for (let i = 0; i < objectiveRows; i++) {
