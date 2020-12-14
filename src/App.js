@@ -26,7 +26,6 @@ class App extends Component {
     this.dealHover = this.dealHover.bind(this);
   }
   dealHover(e) {
-    console.log('hovering in: ', e);
     if (e !== 'not hovering anywhere') {
       this.setState({additionalI: e})
     }
@@ -77,6 +76,21 @@ class App extends Component {
      }
   }
   fromMenuToInfoBox(elem) {
+    // check first that this isnt an army
+    const selectedSavedArmy = armies.filter( selectedSA => selectedSA.name === elem);
+    console.log('length of SSA ', selectedSavedArmy.length);
+    if (selectedSavedArmy.length === 1) {
+      // create selected army:
+      const modelsInGame = this.state.modelsInGame;
+      selectedSavedArmy[0].units.forEach((item, i) => {
+        console.log('rllling: ', item);
+        console.log('converting: ', item, modelsInGame.length);
+        const converted = convertModel(item, modelsInGame.length)
+        console.log('converted ', converted);
+        modelsInGame.push(converted);
+      });
+      this.setState({modelsInGame});
+    }
     // transfer data from Menu to InfoBox
     this.setState({fromStateToInfoBox: elem});
   }
@@ -90,6 +104,7 @@ class App extends Component {
     // create new model
     if (orders.length === 0 && factionSelected.length === 0) {
       const modelsInGame = this.state.modelsInGame;
+      console.log('converting: ', elem, modelsInGame.length);
       const converted = convertModel(elem, modelsInGame.length);
       modelsInGame.push(converted);
       this.setState({modelsInGame});

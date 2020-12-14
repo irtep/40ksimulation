@@ -14,6 +14,7 @@ export const factions = [
 ];
 export const armies = [
   {name: 'blackLegion1250', units: ['sorcerer', 'vindicator']},
-  {name: 'baneBlade1250', units: ['baneblade']},
+  {name: 'baneBlade1250', units: ['baneblade', 'tank commander', 'missile guardsmen', 'guardsmen', 'guardsmen',
+  'chimera', 'pltn commander', 'armoured sentinel', 'armoured sentinel', 'eversor']},
   {name: 'malefica', units: ['malefica']}
 ];
