@@ -36,6 +36,22 @@ export const models = [
      25,
      'imperial guard'
      ),
+    new Model('eversor',
+     `7'', 2+, 2+, 4/4, w6, a6, ld 9, 6+\n
+     if destroyed: d6-> 6'' 4+ each unit takes d3 mortals\n
+     charging/heroic: 3d6'' +2 attacks\n
+     each melee kill = +1 attack at same unit, consolidate = 6''\n
+     if enemy falls back while 1'' of this->this can shoot it\n
+     exe pistol: 12'' pistol4 s4 ap-1 1 rr wounds vs. inf\n
+     melta bombs: 4'' grenade1 s8 -4ap d6 rr wound vs vech\n
+     neuro gauntlet: s+1 -1 1 rr wounds\n
+     power sword: +1 -3 1`,
+     {inField: false, x: null, y: null},
+     3,
+     'circle',
+     25,
+     'imperial guard'
+     ),
     new Model('armoured sentinel',
      `8'', 4+, 4+, 5/6, w6, a1, ld 7, 3+\n
      heavy flamer/multilaser`,

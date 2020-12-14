@@ -38,7 +38,9 @@ export function generateThrows(orders) {
 // converts name of model to ingame model
 export function convertModel(modelsName, modelsActivated) {
   // hulls.filter( hull => hull.name === ship.hull)
+  console.log('at cM funcvs ', modelsName, modelsActivated);
   const convertedModel = models.filter( mod => mod.name === modelsName);
+  console.log('at cM funcs ', convertedModel);
   // make a copy of model
   const newModel = JSON.parse(JSON.stringify(convertedModel[0]));
   // give x and y
