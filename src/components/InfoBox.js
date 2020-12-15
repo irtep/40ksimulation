@@ -45,10 +45,8 @@ class InfoBox extends Component {
       default: console.log('state not found in infoBox ', this.props);
     }
     if (this.props.toAdditionalInfo !== '') {
-      console.log('this.props.ai ', this.props.toAdditionalInfo);
       const foundTroop = models.filter( modd => modd.name === this.props.toAdditionalInfo);
-      console.log('fT ', foundTroop[0]);
-      troopInfo = foundTroop[0].desc;
+      troopInfo = foundTroop[0].name+ '\n'+foundTroop[0].desc;
     }
     return(
       <div>

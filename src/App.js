@@ -24,6 +24,14 @@ class App extends Component {
     this.fromInboxToApp = this.fromInboxToApp.bind(this);
     this.fromFieldToApp = this.fromFieldToApp.bind(this);
     this.dealHover = this.dealHover.bind(this);
+    this.resetStates = this.resetStates.bind(this);
+  }
+  resetStates() {
+    this.setState({
+      orderSelected: '',
+      modelClicked: '',
+      fromStateToInfoBox: ''
+    });
   }
   dealHover(e) {
     if (e !== 'not hovering anywhere') {
@@ -34,11 +42,9 @@ class App extends Component {
     // clicked empty space
       // orders
       if (this.state.modelClicked !== '') {
-        console.log('model is chosen');
         // move
         if (this.state.orderSelected === 'move') {
           // identificate the correct model from state
-          console.log('move');
           const moving = this.state.modelsInGame.filter( model => model.id === this.state.modelClicked);
           // set coords for that model
           if (moving[0] !== undefined) {
@@ -78,15 +84,11 @@ class App extends Component {
   fromMenuToInfoBox(elem) {
     // check first that this isnt an army
     const selectedSavedArmy = armies.filter( selectedSA => selectedSA.name === elem);
-    console.log('length of SSA ', selectedSavedArmy.length);
     if (selectedSavedArmy.length === 1) {
       // create selected army:
       const modelsInGame = this.state.modelsInGame;
       selectedSavedArmy[0].units.forEach((item, i) => {
-        console.log('rllling: ', item);
-        console.log('converting: ', item, modelsInGame.length);
         const converted = convertModel(item, modelsInGame.length)
-        console.log('converted ', converted);
         modelsInGame.push(converted);
       });
       this.setState({modelsInGame});
@@ -95,7 +97,6 @@ class App extends Component {
     this.setState({fromStateToInfoBox: elem});
   }
   fromInboxToApp(elem) {
-    console.log('received from infoBox ', elem);
     // check if this is new model or order
     const orders = modelActions.filter( order => order.name === elem);
     const factionSelected = factions.filter( fac => fac.name === elem);
@@ -104,7 +105,6 @@ class App extends Component {
     // create new model
     if (orders.length === 0 && factionSelected.length === 0) {
       const modelsInGame = this.state.modelsInGame;
-      console.log('converting: ', elem, modelsInGame.length);
       const converted = convertModel(elem, modelsInGame.length);
       modelsInGame.push(converted);
       this.setState({modelsInGame});
@@ -206,6 +206,7 @@ class App extends Component {
         </div>
         <div id= "dices">
           <DiceBox />
+          <input type= "button" onClick= {this.resetStates} value= "reset states"/>
         </div>
       </div>
     );

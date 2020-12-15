@@ -13,7 +13,8 @@ export const factions = [
   {name: 'mercenary'}
 ];
 export const armies = [
-  {name: 'blackLegion1250', units: ['sorcerer', 'vindicator']},
+  {name: 'blackLegion1250', units: ['mr oldschool', 'chaos space marines', 'chaos space marines', 'terminators',
+'terrax', 'rhino', 'dreadclaw', 'berserkers', 'havocs']},
   {name: 'baneBlade1250', units: ['baneblade', 'tank commander', 'missile guardsmen', 'guardsmen', 'guardsmen',
   'chimera', 'pltn commander', 'armoured sentinel', 'armoured sentinel', 'eversor']},
   {name: 'malefica', units: ['malefica']}
