@@ -823,6 +823,27 @@ new Model('manticore',
      32,
      'black legion'
      ),
+    new Model('terminator sorcerer',
+     `Death to the False Emperorn \n
+Teleport Strike	During deployment, - \n
+Terminator Armour	Models in this unit have a 5+ invulnerable save.	\n
+Psychic Power	Warp Charge	Range	Details	Ref\n
+Death Hex	8	12"	If manifested, select a visible enemy unit within 12" of the psyker. Until the start of your next Psychic phase, that unit cannot take invulnerable saves.
+\nPrescience	7	18"	If manifested, select a <LEGION> unit within 18" of the psyker. You can add 1 to all hit rolls made for that unit until the start of your next Psychic phase.
+\nSmite	5	18"	Smite has a warp charge value of 5. If manifested, the closest visible enemy unit within 18" of the psyker suffers D3 mortal wounds (pg 181). If the result of the Psychic test was more than 10 the target suffers D6 mortal wounds instead.
+\nPsyker	Cast	Deny	Powers Known	Other	Ref
+\nSorcerer in Terminator Armour	2	1	Smite and 2 powers from the Dark Hereticus discipline	-
+\nUnit	M	WS	BS	S	T	W	A	Ld	Save	Ref
+\nSorcerer in Terminator Armour	5"	3+	3+	4	4	5	3	9	2+
+\nWeapon	Range	Type	S	AP	D	Abilities	Ref
+\nCombi-bolter	24"	Rapid Fire 2	4	0	1	-
+\nForce axe	Melee	Melee	+2	-2	D3	`,
+     {inField: false, x: null, y: null},
+     4,
+     'circle',
+     32,
+     'black legion'
+     ),
     new Model('mr oldschool',
      `Death to the False Emperor\n
      Exalted Champion	Add 1 to your Warlord’s Attacks characteristic.	\n

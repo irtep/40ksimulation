@@ -13,14 +13,15 @@ export const factions = [
   {name: 'mercenary'}
 ];
 export const armies = [
-  {name: 'mrOldschool_1k', units: ['mr oldschool', 'warpsmith', 'guardsmen', 'guardsmen',
-  'guardsmen', 'berserkers', 'decimator', 'terminators', 'dreadclaw']},
+  {name: 'mrOldschool_1k', units: ['mr oldschool', 'terminator sorcerer', 'guardsmen', 'guardsmen',
+  'guardsmen', 'noise marines', 'terminators', 'dreadclaw']},
 
   {name: 'tanks_1k', units: ['tank commander', 'tank commander', 'armoured sentinel', 'guardsmen', 'guardsmen',
   'guardsmen', 'armoured sentinel', 'armoured sentinel', 'Leman Russ', 'manticore']},
 
-{name: 'tau_modern', units: ['crisis commander', 'cadre fireblade', '5 strike team', 'kroots', 'kroots',
-'3 crisis suits', '3 crisis suits', '3 crisis suits', '3 crisis suits', 'broadside']},
+{name: 'tau_modern', units: ['crisis commander', 'cadre fireblade', '5 strike team', '5 strike team',
+'5 strike team', 'breachers', 'kroots', 'kroots',
+'4 crisis suits', '4 crisis suits', 'marker drones', 'marker drones']},
 
 {name: 'ig-fist_1k', units: ['tank commander', 'guardsmen', 'guardsmen', 'Bullgrins',
 'chimera', 'chimera', 'chimera', 'manticore', 'manticore']},
